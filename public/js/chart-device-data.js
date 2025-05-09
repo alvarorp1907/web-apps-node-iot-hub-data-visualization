@@ -13,15 +13,21 @@ $(document).ready(() => {
       this.maxLen = 50;//50 measures can be plot at same time
       this.timeData = new Array(this.maxLen);
       this.bloodGlucoseData = new Array(this.maxLen);
+	  this.endTidalCO2Data = new Array(this.maxLen);
+	  this.arrhythmiaIndex = new Array(this.maxLen);
     }
 
-    addData(time, bloodGlucoseData) {
+    addData(time, bloodGlucoseData, endTidalCO2Data, arrhythmiaIndex) {
       this.timeData.push(time);
       this.bloodGlucoseData.push(bloodGlucoseData);
+	  this.endTidalCO2Data.push(endTidalCO2Data);
+	  this.arrhythmiaIndex.push(arrhythmiaIndex);
 
       if (this.timeData.length > this.maxLen) {
         this.timeData.shift();
         this.bloodGlucoseData.shift();
+		this.endTidalCO2Data.shift();
+		this.arrhythmiaIndex.shift();
       }
     }
   }
@@ -58,15 +64,39 @@ $(document).ready(() => {
     datasets: [
       {
         fill: false,
-        label: 'bloodGlucoseData',
-        yAxisID: 'bloodGlucoseData',
+        label: 'bloodGlucose',
+        yAxisID: 'bloodGlucose',
         borderColor: 'rgba(255, 204, 0, 1)',
         pointBoarderColor: 'rgba(255, 204, 0, 1)',
         backgroundColor: 'rgba(255, 204, 0, 0.4)',
         pointHoverBackgroundColor: 'rgba(255, 204, 0, 1)',
         pointHoverBorderColor: 'rgba(255, 204, 0, 1)',
         spanGaps: true,
+      },
+	  {
+        fill: false,
+        label: 'endTidalCO2',
+        yAxisID: 'endTidalCO2',
+        borderColor: 'rgba(24, 120, 240, 1)',
+        pointBoarderColor: 'rgba(24, 120, 240, 1)',
+        backgroundColor: 'rgba(24, 120, 240, 0.4)',
+        pointHoverBackgroundColor: 'rgba(24, 120, 240, 1)',
+        pointHoverBorderColor: 'rgba(24, 120, 240, 1)',
+        spanGaps: true,
+      },
+	  {
+        fill: false,
+        label: 'arrhythmiaIndex',
+        yAxisID: 'arrhythmiaIndex',
+        borderColor: 'rgba(34, 193, 47, 1)',
+		pointBorderColor: 'rgba(34, 193, 47, 1)',
+		backgroundColor: 'rgba(34, 193, 47, 0.4)',
+		pointHoverBackgroundColor: 'rgba(34, 193, 47, 1)',
+		pointHoverBorderColor: 'rgba(34, 193, 47, 1)',     
+        spanGaps: true,
       }
+	  
+	  
     ]
   };
 
@@ -80,6 +110,24 @@ $(document).ready(() => {
           display: true,
         },
         position: 'left',
+      },
+	  {
+        id: 'endTidalCO2',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'CO2',
+          display: true,
+        },
+        position: 'right',
+      },
+	  {
+        id: 'arrhythmiaIndex',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'arrhythmia index',
+          display: true,
+        },
+        position: 'right',
       }]
     }
   };
@@ -127,13 +175,13 @@ $(document).ready(() => {
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
 
       if (existingDeviceData) {
-        existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose);
+        existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2Data, messageData.IotData.arrhythmiaIndex );
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
-        newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose);
+        newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2Data, messageData.IotData.arrhythmiaIndex);
 
         // add device to the UI list
         const node = document.createElement('option');

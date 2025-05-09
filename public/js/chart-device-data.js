@@ -167,7 +167,7 @@ $(document).ready(() => {
       console.log(messageData);
 
       //this current version doesn't support parsing capabilities for real sensors
-      if (this.devices[i].deviceId == "CC4IoTFADevice") {
+      if (messageData.DeviceId == "CC4IoTFADevice") {
         return;
       }
 

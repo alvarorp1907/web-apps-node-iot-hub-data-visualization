@@ -166,10 +166,10 @@ $(document).ready(() => {
       const messageData = JSON.parse(message.data);
       console.log(messageData);
 
-      // time and either temperature or humidity are required
-      //if (!messageData.MessageDate || (!messageData.IotData.bloodGlucoseData)) {
-        //return;
-      //}
+      //this current version doesn't support parsing capabilities for real sensors
+      if (this.devices[i].deviceId == "CC4IoTFADevice")) {
+        return;
+      }
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);

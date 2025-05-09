@@ -100,7 +100,7 @@ $(document).ready(() => {
   const chartOptions = {
     scales: {
       yAxes: [{
-        id: 'bloodGlucoseData',
+        id: 'bloodGlucose',
         type: 'linear',
         scaleLabel: {
           labelString: 'mg/dL',

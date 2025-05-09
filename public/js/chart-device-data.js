@@ -114,10 +114,10 @@ $(document).ready(() => {
   webSocket.onmessage = function onMessage(message) {
     try {
       const messageData = JSON.parse(message.data);
-      console.log(messageData);
+      console.log("Front: " + JSON.stringify(messageData));
 
       // time and either temperature or humidity are required
-      if (!messageData.MessageDate || (!messageData.IotData.light) || (!messageData.IotData.bloodGlucoseData)) {
+      if (!messageData.MessageDate || (!messageData.IotData.bloodGlucoseData)) {
         return;
       }
 

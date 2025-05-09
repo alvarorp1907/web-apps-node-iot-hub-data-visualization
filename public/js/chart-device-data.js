@@ -94,11 +94,8 @@ $(document).ready(() => {
 		pointHoverBackgroundColor: 'rgba(34, 193, 47, 1)',
 		pointHoverBorderColor: 'rgba(34, 193, 47, 1)',     
         spanGaps: true,
-      }
-	  
-	  
-    ]
-  };
+      }]
+   };
 
   const chartOptions = {
     scales: {
@@ -169,9 +166,9 @@ $(document).ready(() => {
       console.log(messageData);
 
       //this current version doesn't support parsing capabilities for real sensors
-      if (messageData.DeviceId == "CC4IoTFADevice") {
-        return;
-      }
+      if (!messageData.MessageDate || !messageData.IotData.bloodGlucose){
+		  return;
+	  }
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);

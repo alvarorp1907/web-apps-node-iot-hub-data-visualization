@@ -10,18 +10,18 @@ $(document).ready(() => {
   class DeviceData {
     constructor(deviceId) {
       this.deviceId = deviceId;
-      this.maxLen = 50;
+      this.maxLen = 50;//50 measures can be plot at same time
       this.timeData = new Array(this.maxLen);
-      this.lightData = new Array(this.maxLen);
+      this.bloodGlucoseData = new Array(this.maxLen);
     }
 
-    addData(time, light) {
+    addData(time, bloodGlucoseData) {
       this.timeData.push(time);
-      this.lightData.push(light);
+      this.bloodGlucoseData.push(bloodGlucoseData);
 
       if (this.timeData.length > this.maxLen) {
         this.timeData.shift();
-        this.lightData.shift();
+        this.bloodGlucoseData.shift();
       }
     }
   }
@@ -43,6 +43,7 @@ $(document).ready(() => {
       return undefined;
     }
 
+	//get the total number of devices connected
     getDevicesCount() {
       return this.devices.length;
     }
@@ -55,8 +56,8 @@ $(document).ready(() => {
     datasets: [
       {
         fill: false,
-        label: 'Light',
-        yAxisID: 'Light',
+        label: 'bloodGlucoseData',
+        yAxisID: 'bloodGlucoseData',
         borderColor: 'rgba(255, 204, 0, 1)',
         pointBoarderColor: 'rgba(255, 204, 0, 1)',
         backgroundColor: 'rgba(255, 204, 0, 0.4)',
@@ -70,10 +71,10 @@ $(document).ready(() => {
   const chartOptions = {
     scales: {
       yAxes: [{
-        id: 'Light',
+        id: 'bloodGlucoseData',
         type: 'linear',
         scaleLabel: {
-          labelString: 'Light (lux)',
+          labelString: 'mg/dL',
           display: true,
         },
         position: 'left',
@@ -99,14 +100,14 @@ $(document).ready(() => {
   function OnSelectionChange() {
     const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
     chartData.labels = device.timeData;
-    chartData.datasets[0].data = device.lightData;
+    chartData.datasets[0].data = device.bloodGlucoseData;
     myLineChart.update();
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
 
   // When a web socket message arrives:
   // 1. Unpack it
-  // 2. Validate it has date/time and temperature
+  // 2. Validate it has date/time and value
   // 3. Find or create a cached device to hold the telemetry data
   // 4. Append the telemetry data
   // 5. Update the chart UI
@@ -116,7 +117,7 @@ $(document).ready(() => {
       console.log(messageData);
 
       // time and either temperature or humidity are required
-      if (!messageData.MessageDate || (!messageData.IotData.light)) {
+      if (!messageData.MessageDate || (!messageData.IotData.light) || (!messageData.IotData.bloodGlucoseData)) {
         return;
       }
 
@@ -124,13 +125,13 @@ $(document).ready(() => {
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
 
       if (existingDeviceData) {
-        existingDeviceData.addData(messageData.MessageDate, messageData.IotData.light);
+        existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose);
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
-        newDeviceData.addData(messageData.MessageDate, messageData.IotData.light);
+        newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose);
 
         // add device to the UI list
         const node = document.createElement('option');

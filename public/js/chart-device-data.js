@@ -166,7 +166,7 @@ $(document).ready(() => {
       console.log(messageData);
 
       //this current version doesn't support parsing capabilities for real sensors
-      if (!messageData.MessageDate || !messageData.IotData.bloodGlucose){
+      if (!messageData.MessageDate){
 		  return;
 	  }
 

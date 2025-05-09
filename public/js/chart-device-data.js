@@ -117,9 +117,9 @@ $(document).ready(() => {
       console.log(messageData);
 
       // time and either temperature or humidity are required
-      if (!messageData.MessageDate || (!messageData.IotData.bloodGlucoseData)) {
-        return;
-      }
+      //if (!messageData.MessageDate || (!messageData.IotData.bloodGlucoseData)) {
+        //return;
+      //}
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);

@@ -36,10 +36,12 @@ $(document).ready(() => {
     findDevice(deviceId) {
       for (let i = 0; i < this.devices.length; ++i) {
         if (this.devices[i].deviceId === deviceId) {
+		   console.log("Device Id encontrado:" + deviceId);
           return this.devices[i];
         }
       }
-
+	
+	  console.log("Device Id no encontrado:" + deviceId);
       return undefined;
     }
 

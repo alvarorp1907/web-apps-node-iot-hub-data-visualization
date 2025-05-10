@@ -8,13 +8,29 @@ $(document).ready(() => {
 
   // A class for holding the last N points of telemetry for a device
   class DeviceData {
-    constructor(deviceId) {
+    constructor(deviceId,isSimulated) {
       this.deviceId = deviceId;
       this.maxLen = 50;//50 measures can be plot at same time
-      this.timeData = new Array(this.maxLen);
-      this.bloodGlucoseData = new Array(this.maxLen);
-	  this.endTidalCO2Data = new Array(this.maxLen);
-	  this.arrhythmiaIndex = new Array(this.maxLen);
+	  this.timeData = new Array(this.maxLen);
+	  if (isSimulated){
+		  console.log("Constructor sensor simulado");
+          this.bloodGlucoseData = new Array(this.maxLen);
+	      this.endTidalCO2Data = new Array(this.maxLen);
+	      this.arrhythmiaIndex = new Array(this.maxLen);
+	  }else{
+          // this.BatteryVoltage = new Array(this.maxLen);
+	      // this.BloodPressureDiastolitic = new Array(this.maxLen);
+	      // this.BloodPressureSystolic = new Array(this.maxLen);
+		  // this.HeartRate = new Array(this.maxLen);
+		  // this.Latitude = new Array(this.maxLen);
+		  // this.Longitude = new Array(this.maxLen);
+		  // this.MessageCounter = new Array(this.maxLen);
+		  // this.PanicAlarm = new Array(this.maxLen);
+		  // this.RespiratoryRate = new Array(this.maxLen);
+		  // this.Satellites = new Array(this.maxLen);
+		  console.log("Constructor sensor real");
+		  this.Satellites = new Array(this.maxLen);
+	  }
     }
 
     addData(time, bloodGlucoseData, endTidalCO2Data, arrhythmiaIndex) {
@@ -147,9 +163,9 @@ $(document).ready(() => {
   function OnSelectionChange() {
     const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
     chartData.labels = device.timeData;
-    chartData.datasets[0].data = device.bloodGlucoseData || [];;
-	chartData.datasets[1].data = device.endTidalCO2Data || [];;
-	chartData.datasets[2].data = device.arrhythmiaIndex || [];;
+    chartData.datasets[0].data = device.bloodGlucoseData || [];
+	chartData.datasets[1].data = device.endTidalCO2Data || [];
+	chartData.datasets[2].data = device.arrhythmiaIndex || [];
     myLineChart.update();
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
@@ -176,7 +192,7 @@ $(document).ready(() => {
       if (existingDeviceData) {
         existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
       } else {
-        const newDeviceData = new DeviceData(messageData.DeviceId);
+        const newDeviceData = new DeviceData(messageData.DeviceId,messageData.IotData.isSimulated);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;

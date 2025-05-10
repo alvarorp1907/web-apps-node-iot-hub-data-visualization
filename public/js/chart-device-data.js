@@ -387,7 +387,7 @@ $(document).ready(() => {
   const map = new mapboxgl.Map({
   	container: 'map', // ID del div
   	style: 'mapbox://styles/mapbox/streets-v12', // Estilo del mapa
-  	center: [-3.7038, 40.4168], // [lng, lat] — Madrid
+  	center: [-3.62, 40.38], // [lng, lat] — Madrid
   	zoom: 20
   });
 

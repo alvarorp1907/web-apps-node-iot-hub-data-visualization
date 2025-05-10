@@ -12,6 +12,8 @@ $(document).ready(() => {
       this.deviceId = deviceId;
       this.maxLen = 50;//50 measures can be plot at same time
 	  this.timeData = new Array(this.maxLen);
+	  this.isSimulated = isSimulated;
+	  
 	  if (isSimulated){
 		  console.log("Constructor sensor simulado");
           this.bloodGlucoseData = new Array(this.maxLen);
@@ -46,6 +48,10 @@ $(document).ready(() => {
 		this.arrhythmiaIndex.shift();
       }
     }
+	
+	isReal(){
+		return this.isSimulated;
+	}
   }
 
   // All the devices in the list (those that have been sending telemetry)
@@ -190,7 +196,10 @@ $(document).ready(() => {
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
 
       if (existingDeviceData) {
-        existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
+		if (!existingDeviceData.isReal()){
+			existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
+			console.log("Adding new data for simulated sensor");
+		}
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId,messageData.IotData.isSimulated);
         trackedDevices.devices.push(newDeviceData);

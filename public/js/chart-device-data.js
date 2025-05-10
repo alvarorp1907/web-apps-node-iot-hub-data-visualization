@@ -425,6 +425,7 @@ $(document).ready(() => {
 			const lat = parseFloat(messageData.IotData.Latitude);
 			
 			if (currentCoordinates.lng !== lon || currentCoordinates.lat !== lat){
+				console.log("cambio de coordenadas ID : " + existingDeviceData.deviceId)
 				existingDeviceData.marker.setLngLat([lon, lat]) // [lng, lat]
 				.setPopup(new mapboxgl.Popup().setHTML(
 					"<p>" + newDeviceData.deviceId + ": " +

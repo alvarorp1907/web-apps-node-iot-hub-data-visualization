@@ -429,7 +429,7 @@ $(document).ready(() => {
 				console.log("cambio de coordenadas ID : " + existingDeviceData.deviceId)
 				existingDeviceData.marker.setLngLat([lon, lat]) // [lng, lat]
 				.setPopup(new mapboxgl.Popup().setHTML(
-					"<p>" + newDeviceData.deviceId + ": " +
+					"<p>" + existingDeviceData.deviceId + ": " +
 					"(Longitude: " + lon +
 					", Latitude: " + lat + ")</p>"
 					));

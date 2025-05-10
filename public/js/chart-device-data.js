@@ -115,7 +115,7 @@ $(document).ready(() => {
           labelString: 'mmHg',
           display: true,
         },
-        position: 'right',
+        position: 'left',
       },
 	  {
         id: 'arrhythmiaIndex',
@@ -124,7 +124,7 @@ $(document).ready(() => {
           labelString: 'arrhythmia index',
           display: true,
         },
-        position: 'right',
+        position: 'left',
       }]
     }
   };

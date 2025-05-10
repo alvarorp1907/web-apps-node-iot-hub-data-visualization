@@ -39,25 +39,5 @@
 	}
 	</style>
 	
-	<script>
-		// Tu API Token de Mapbox
-		mapboxgl.accessToken = 'pk.eyJ1IjoiYWx2YXJvcnAxOSIsImEiOiJjbWFpamVtZWUwMmhuMmpzazF5YTZ3emw2In0.955WJKEok1-tQwvkNOhRpg';
-
-		// Crear mapa
-		const map = new mapboxgl.Map({
-			container: 'map', // ID del div
-			style: 'mapbox://styles/mapbox/streets-v12', // Estilo del mapa
-			center: [-3.7038, 40.4168], // [lng, lat] — Madrid
-			zoom: 12
-		});
-
-		// Crear un marker
-		const marker = new mapboxgl.Marker()
-			.setLngLat([-3.7038, 40.4168]) // [lng, lat]
-			.setPopup(new mapboxgl.Popup().setHTML("<h3>Hola!</h3><p>Estoy en Madrid 🚀</p>"))
-		.addTo(map);
-	</script>
-	
 </body>
-
 </html>

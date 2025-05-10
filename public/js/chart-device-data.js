@@ -112,7 +112,7 @@ $(document).ready(() => {
         id: 'endTidalCO2',
         type: 'linear',
         scaleLabel: {
-          labelString: 'CO2',
+          labelString: 'mmHg',
           display: true,
         },
         position: 'right',

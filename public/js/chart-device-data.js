@@ -233,6 +233,7 @@ $(document).ready(() => {
 	}else{
 		chartData.labels = device.timeData;
         chartData.datasets[0].data = device.Temperature || [];
+		console.log("Data temperatura: "+ chartData.datasets[0].data)
         myLineRealChart.update();
 	}
   }
@@ -277,7 +278,7 @@ $(document).ready(() => {
 			console.log("First time adding new data for simulated sensor");
 		}else{
 			newDeviceData.addRealData(messageData.MessageDate, messageData.IotData.Temperature);
-			console.log("First time adding new data for real sensor");
+			console.log("First time adding new data for real sensor: " + messageData.IotData.Temperature);
 		}
 
         // add device to the UI list

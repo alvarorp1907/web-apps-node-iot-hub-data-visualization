@@ -253,8 +253,6 @@ $(document).ready(() => {
       if (!messageData.MessageDate){
 		  return;
 	  }
-	  
-	  let sensorSimulated = messageData.IotData.isSimulated == true ? true : false;
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
@@ -268,6 +266,7 @@ $(document).ready(() => {
 			console.log("Adding new data for real sensor");
 		}
       } else {
+		  
         const newDeviceData = new DeviceData(messageData.DeviceId,messageData.IotData.isSimulated);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
@@ -295,12 +294,16 @@ $(document).ready(() => {
         }
       }
 	  
-	  //update chart
-	  if (sensorSimulated){
-		 myLineChart.update(); 
+	  //update chart depeding of the sensor that is currently selected on screen
+	  let DeviceActiveStr = listOfDevices.options[listOfDevices.selectedIndex].text;
+	  let activeDevice = trackedDevices.findDevice(DeviceActiveStr);
+	  let updateChartForSimulated = activeDevice.isDeviceSimulated() == true ? true : false;
+	  
+	  if (updateChartForSimulated){
+		  myLineChart.update(); 
 	  }else{
-		 myLineRealChart.update(); 
-	  }
+		  myLineRealChart.update();
+	  } 
 	  
     } catch (err) {
       console.error(err);

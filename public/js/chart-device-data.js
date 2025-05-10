@@ -381,21 +381,15 @@ $(document).ready(() => {
   listOfDevices.addEventListener('change', OnSelectionChange, false);
   
   //map init
-  // API
+  //token
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWx2YXJvcnAxOSIsImEiOiJjbWFpamVtZWUwMmhuMmpzazF5YTZ3emw2In0.955WJKEok1-tQwvkNOhRpg';
 
-  // Crear mapa
   const map = new mapboxgl.Map({
   	container: 'map', // ID del div
   	style: 'mapbox://styles/mapbox/streets-v12', // Estilo del mapa
   	center: [-3.7038, 40.4168], // [lng, lat] — Madrid
   	zoom: 20
   });
-  
-  const marker = new mapboxgl.Marker()
-	.setLngLat([-3.7038, 40.4168]) // [lng, lat]
-	.setPopup(new mapboxgl.Popup().setHTML("<h3>Hola!</h3><p>Estoy en Madrid</p>"))
-	.addTo(map);
 
   // When a web socket message arrives:
   // 1. Unpack it
@@ -445,8 +439,13 @@ $(document).ready(() => {
         node.appendChild(nodeText);
         listOfDevices.appendChild(node);
 		
-		//add marker on map
-		
+		//add marker on map in case that the new device is a real sensor
+		if (!newDeviceData.isDeviceSimulated()){
+			const marker = new mapboxgl.Marker()
+			.setLngLat([newDeviceData.Longitude, newDeviceData.Latitude]) // [lng, lat]
+			.setPopup(new mapboxgl.Popup().setHTML("<p>" + newDeviceData.deviceId "/p>"))
+			.addTo(map);
+		}
 		
 
         // if this is the first device being discovered, auto-select it

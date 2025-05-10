@@ -296,15 +296,15 @@ $(document).ready(() => {
 	  
 	  //update chart depeding of the sensor that is currently selected on screen
 	  let DeviceActiveStr = listOfDevices.options[listOfDevices.selectedIndex].text;
-	  Console.log("ID select activo " + DeviceActiveStr);
+	  console.log("ID select activo " + DeviceActiveStr);
 	  let activeDevice = trackedDevices.findDevice(DeviceActiveStr);
 	  let updateChartForSimulated = activeDevice.isDeviceSimulated() == true ? true : false;
 	  
 	  if (updateChartForSimulated){
-		  Console.log("Actualizando grafico para sensores simulados");
+		  console.log("Actualizando grafico para sensores simulados");
 		  myLineChart.update(); 
 	  }else{
-		  Console.log("Actualizando grafico para sensores reales");
+		  console.log("Actualizando grafico para sensores reales");
 		  myLineRealChart.update();
 	  } 
 	  

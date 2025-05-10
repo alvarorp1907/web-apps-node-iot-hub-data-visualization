@@ -229,10 +229,11 @@ $(document).ready(() => {
         chartData.datasets[0].data = device.bloodGlucoseData || [];
 	    chartData.datasets[1].data = device.endTidalCO2Data || [];
 	    chartData.datasets[2].data = device.arrhythmiaIndex || [];
+		console.log("Datos antes de actualizar: "+ chartData.datasets[0].data)
         myLineChart.update();
 	}else{
 		chartData.labels = device.timeData;
-        chartData.datasets[0].data = device.Temperature || [];
+        chartData.datasets[0].data = device.Temperature;
 		console.log("Data temperatura: "+ chartData.datasets[0].data)
         myLineRealChart.update();
 	}

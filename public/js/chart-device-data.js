@@ -209,7 +209,7 @@ $(document).ready(() => {
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
 		
-		if (existingDeviceData.isDeviceSimulated()){
+		if (newDeviceData.isDeviceSimulated()){
 			newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex);
 		}else{
 			//ToDo: complete for real sensor

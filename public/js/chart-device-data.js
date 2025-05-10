@@ -234,7 +234,6 @@ $(document).ready(() => {
 	}else{
 		chartRealData.labels = device.timeData;
         chartRealData.datasets[0].data = device.Temperature;
-		console.log("Data temperatura: "+ chartData.datasets[0].data)
         myLineRealChart.update();
 	}
   }

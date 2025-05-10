@@ -13,6 +13,7 @@ $(document).ready(() => {
       this.maxLen = 50;//50 measures can be plot at same time
 	  this.timeData = new Array(this.maxLen);
 	  this.isSimulated = isSimulated;
+	  this.marker = undefined;
 	  
 	  if (isSimulated){
 		  //console.log("Constructor sensor simulado");
@@ -417,6 +418,20 @@ $(document).ready(() => {
 		}else{
 			existingDeviceData.addRealData(messageData.MessageDate, messageData.IotData.BatteryVoltage, messageData.IotData.BloodPressureDiastolitic, messageData.IotData.BloodPressureSystolic, messageData.IotData.HeartRate, messageData.IotData.OxygenSaturation, messageData.IotData.RespiratoryRate ,messageData.IotData.Temperature);
 			console.log("Adding new data for real sensor");
+			
+			//update marker in case that position is different from the previous stored coordenates
+			const currentCoordinates = existingDeviceData.marker.getLngLat();
+			const lon = parseFloat(messageData.IotData.Longitude);
+			const lat = parseFloat(messageData.IotData.Latitude);
+			
+			if (currentCoordinates.lng !== lon || currentCoordinates.lat !== lat){
+				existingDeviceData.marker.setLngLat([lon, lat]) // [lng, lat]
+				.setPopup(new mapboxgl.Popup().setHTML(
+					"<p>" + newDeviceData.deviceId + ": " +
+					"(Longitude: " + lon +
+					", Latitude: " + lat + ")</p>"
+					));
+			}
 		}
       } else {
 		  
@@ -431,6 +446,7 @@ $(document).ready(() => {
 		}else{
 			newDeviceData.addRealData(messageData.MessageDate, messageData.IotData.BatteryVoltage, messageData.IotData.BloodPressureDiastolitic, messageData.IotData.BloodPressureSystolic, messageData.IotData.HeartRate, messageData.IotData.OxygenSaturation, messageData.IotData.RespiratoryRate ,messageData.IotData.Temperature);
 			console.log("First time adding new data for real sensor: " + messageData.IotData.Temperature);
+			
 		}
 
         // add device to the UI list
@@ -439,7 +455,7 @@ $(document).ready(() => {
         node.appendChild(nodeText);
         listOfDevices.appendChild(node);
 		
-		//add marker on map in case that the new device is a real sensor
+		//create marker on map in case that the new device is a real sensor
 		if (!newDeviceData.isDeviceSimulated()){
 			const marker = new mapboxgl.Marker()
 			.setLngLat([parseFloat(messageData.IotData.Longitude), parseFloat(messageData.IotData.Latitude)]) // [lng, lat]
@@ -449,6 +465,13 @@ $(document).ready(() => {
 				", Latitude: " + messageData.IotData.Latitude + ")</p>"
 				))
 			.addTo(map);
+			//storing coordinates 
+			marker.coordinates = {
+				lng: parseFloat(messageData.IotData.Longitude),
+				lat: parseFloat(messageData.IotData.Latitude)
+			};
+				
+			newDeviceData.marker = marker;
 		}
 		
 

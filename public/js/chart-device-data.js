@@ -385,8 +385,8 @@ $(document).ready(() => {
   mapboxgl.accessToken = 'pk.eyJ1IjoiYWx2YXJvcnAxOSIsImEiOiJjbWFpamVtZWUwMmhuMmpzazF5YTZ3emw2In0.955WJKEok1-tQwvkNOhRpg';
 
   const map = new mapboxgl.Map({
-  	container: 'map', // ID del div
-  	style: 'mapbox://styles/mapbox/streets-v12', // Estilo del mapa
+  	container: 'map', // ID div
+  	style: 'mapbox://styles/mapbox/satellite-v9', // Satellite style
   	center: [-3.62, 40.38], // [lng, lat] — Madrid
   	zoom: 20
   });

@@ -49,7 +49,7 @@ $(document).ready(() => {
       }
     }
 	
-	isReal(){
+	isDeviceSimulated(){
 		return this.isSimulated;
 	}
   }
@@ -196,7 +196,7 @@ $(document).ready(() => {
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
 
       if (existingDeviceData) {
-		if (!existingDeviceData.isReal()){
+		if (existingDeviceData.isDeviceSimulated()){
 			existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
 			console.log("Adding new data for simulated sensor");
 		}

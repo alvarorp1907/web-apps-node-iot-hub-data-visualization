@@ -249,10 +249,12 @@ $(document).ready(() => {
       const messageData = JSON.parse(message.data);
       console.log(messageData);
 
-      //this current version doesn't support parsing capabilities for real sensors
+      //ToDo: enhance this condition
       if (!messageData.MessageDate){
 		  return;
 	  }
+	  
+	  let sensorSimulated = messageData.IotData.isSimulated == true ? true : false;
 
       // find or add device to list of tracked devices
       const existingDeviceData = trackedDevices.findDevice(messageData.DeviceId);
@@ -293,8 +295,13 @@ $(document).ready(() => {
         }
       }
 	  
-      myLineChart.update();
-	  myLineRealChart.update();
+	  //update chart
+	  if (sensorSimulated){
+		 myLineChart.update(); 
+	  }else{
+		 myLineRealChart.update(); 
+	  }
+	  
     } catch (err) {
       console.error(err);
     }

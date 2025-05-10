@@ -443,7 +443,7 @@ $(document).ready(() => {
 		if (!newDeviceData.isDeviceSimulated()){
 			const marker = new mapboxgl.Marker()
 			.setLngLat([newDeviceData.Longitude, newDeviceData.Latitude]) // [lng, lat]
-			.setPopup(new mapboxgl.Popup().setHTML("<p>" + newDeviceData.deviceId "/p>"))
+			.setPopup(new mapboxgl.Popup().setHTML("<p>" + newDeviceData.deviceId + "</p>"))
 			.addTo(map);
 		}
 		

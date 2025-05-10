@@ -262,7 +262,7 @@ $(document).ready(() => {
 			existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
 			console.log("Adding new data for simulated sensor");
 		}else{
-			existingDeviceData.addRealData(messageData.IotData.Temperature);
+			existingDeviceData.addRealData(messageData.MessageDate, messageData.IotData.Temperature);
 			console.log("Adding new data for real sensor");
 		}
       } else {
@@ -276,7 +276,7 @@ $(document).ready(() => {
 			newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex);
 			console.log("First time adding new data for simulated sensor");
 		}else{
-			newDeviceData.addRealData(messageData.IotData.Temperature);
+			newDeviceData.addRealData(messageData.MessageDate, messageData.IotData.Temperature);
 			console.log("First time adding new data for real sensor");
 		}
 

@@ -20,6 +20,7 @@ $(document).ready(() => {
 	      this.endTidalCO2Data = new Array(this.maxLen);
 	      this.arrhythmiaIndex = new Array(this.maxLen);
 	  }else{
+		  console.log("Constructor sensor real");
           // this.BatteryVoltage = new Array(this.maxLen);
 	      // this.BloodPressureDiastolitic = new Array(this.maxLen);
 	      // this.BloodPressureSystolic = new Array(this.maxLen);
@@ -27,11 +28,11 @@ $(document).ready(() => {
 		  // this.Latitude = new Array(this.maxLen);
 		  // this.Longitude = new Array(this.maxLen);
 		  // this.MessageCounter = new Array(this.maxLen);
+		  // this.OxygenSaturation = new Array(this.maxLen);
 		  // this.PanicAlarm = new Array(this.maxLen);
 		  // this.RespiratoryRate = new Array(this.maxLen);
 		  // this.Satellites = new Array(this.maxLen);
-		  console.log("Constructor sensor real");
-		  this.Satellites = new Array(this.maxLen);
+		  this.Temperature = new Array(this.maxLen);
 	  }
     }
 
@@ -47,12 +48,23 @@ $(document).ready(() => {
 		this.endTidalCO2Data.shift();
 		this.arrhythmiaIndex.shift();
       }
+	}
+  
+	addRealData(time, temperature) {
+      this.timeData.push(time);
+      this.Temperature.push(temperature);
+
+      if (this.timeData.length > this.maxLen) {
+        this.timeData.shift();
+        this.Temperature.shift();
+      }
     }
 	
 	isDeviceSimulated(){
 		console.log("Valor de simulacion " + this.isSimulated);
 		return this.isSimulated;
 	}
+	
   }
 
   // All the devices in the list (those that have been sending telemetry)
@@ -201,7 +213,8 @@ $(document).ready(() => {
 			existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
 			console.log("Adding new data for simulated sensor");
 		}else{
-			//ToDo: complete for real sensor
+			existingDeviceData.addRealData(messageData.IotData.Temperature);
+			console.log("Adding new data for real sensor");
 		}
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId,messageData.IotData.isSimulated);
@@ -211,8 +224,10 @@ $(document).ready(() => {
 		
 		if (newDeviceData.isDeviceSimulated()){
 			newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex);
+			console.log("First time adding new data for simulated sensor");
 		}else{
-			//ToDo: complete for real sensor
+			newDeviceData.addRealData(messageData.IotData.Temperature);
+			console.log("First time adding new data for real sensor");
 		}
 
         // add device to the UI list

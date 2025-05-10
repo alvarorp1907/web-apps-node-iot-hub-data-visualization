@@ -94,7 +94,7 @@ $(document).ready(() => {
 
   const trackedDevices = new TrackedDevices();
 
-  // Define the chart axes
+  // Define the chart axes for simulated Sensors
   const chartData = {
     datasets: [
       {
@@ -131,7 +131,8 @@ $(document).ready(() => {
         spanGaps: true,
       }]
    };
-
+   
+  //chart options for simulated sensors
   const chartOptions = {
     scales: {
       yAxes: [{
@@ -163,15 +164,56 @@ $(document).ready(() => {
       }]
     }
   };
+  
+    // Define the chart axes for simulated Sensors
+  const chartRealData = {
+    datasets: [
+      {
+        fill: false,
+        label: 'Temperature',
+        yAxisID: 'Temperature',
+        borderColor: 'rgba(255, 204, 0, 1)',
+        pointBoarderColor: 'rgba(255, 204, 0, 1)',
+        backgroundColor: 'rgba(255, 204, 0, 0.4)',
+        pointHoverBackgroundColor: 'rgba(255, 204, 0, 1)',
+        pointHoverBorderColor: 'rgba(255, 204, 0, 1)',
+        spanGaps: true,
+      }]
+   };
+   
+   //chart options for simulated sensors
+   const chartRealOptions = {
+    scales: {
+      yAxes: [{
+        id: 'Temperature',
+        type: 'linear',
+        scaleLabel: {
+          labelString: 'ºC',
+          display: true,
+        },
+        position: 'left',
+      }]
+    }
+  };
 
   // Get the context of the canvas element we want to select
   const ctx = document.getElementById('iotChart').getContext('2d');
+  //for simulated Sensors
   const myLineChart = new Chart(
     ctx,
     {
       type: 'line',
       data: chartData,
       options: chartOptions,
+    });
+
+  // for real sensors
+  const myLineRealChart = new Chart(
+    ctx,
+    {
+      type: 'line',
+      data: chartRealData,
+      options: chartRealOptions,
     });
 
   // Manage a list of devices in the UI, and update which device data the chart is showing
@@ -181,11 +223,18 @@ $(document).ready(() => {
   const listOfDevices = document.getElementById('listOfDevices');
   function OnSelectionChange() {
     const device = trackedDevices.findDevice(listOfDevices[listOfDevices.selectedIndex].text);
-    chartData.labels = device.timeData;
-    chartData.datasets[0].data = device.bloodGlucoseData || [];
-	chartData.datasets[1].data = device.endTidalCO2Data || [];
-	chartData.datasets[2].data = device.arrhythmiaIndex || [];
-    myLineChart.update();
+	//graph selection depending on the type of device (real or simulated)
+	if (device.isDeviceSimulated()){
+		chartData.labels = device.timeData;
+        chartData.datasets[0].data = device.bloodGlucoseData || [];
+	    chartData.datasets[1].data = device.endTidalCO2Data || [];
+	    chartData.datasets[2].data = device.arrhythmiaIndex || [];
+        myLineChart.update();
+	}else{
+		chartData.labels = device.timeData;
+        chartData.datasets[0].data = device.Temperature || [];
+        myLineRealChart.update();
+	}
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
 
@@ -243,8 +292,9 @@ $(document).ready(() => {
           OnSelectionChange();
         }
       }
-
+	  
       myLineChart.update();
+	  myLineRealChart.update();
     } catch (err) {
       console.error(err);
     }

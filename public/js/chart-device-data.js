@@ -233,7 +233,7 @@ $(document).ready(() => {
         myLineChart.update();
 	}else{
 		chartRealData.labels = device.timeData;
-        chartRealData.datasets[0].data = device.Temperature;
+        chartRealData.datasets[0].data = device.Temperature || [];
         myLineRealChart.update();
 	}
   }

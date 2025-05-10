@@ -334,7 +334,7 @@ $(document).ready(() => {
 
   // Get the context of the canvas element we want to select
   const ctx = document.getElementById('iotChart').getContext('2d');
-  const ctx2 = document.getElementById('iotChart').getContext('2d');
+  const ctx2 = document.getElementById('iotChart2').getContext('2d');
   
   //for simulated Sensors
   const myLineChart = new Chart(

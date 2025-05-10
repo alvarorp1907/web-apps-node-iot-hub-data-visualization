@@ -200,13 +200,20 @@ $(document).ready(() => {
 		if (existingDeviceData.isDeviceSimulated()){
 			existingDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex );
 			console.log("Adding new data for simulated sensor");
+		}else{
+			//ToDo: complete for real sensor
 		}
       } else {
         const newDeviceData = new DeviceData(messageData.DeviceId,messageData.IotData.isSimulated);
         trackedDevices.devices.push(newDeviceData);
         const numDevices = trackedDevices.getDevicesCount();
         deviceCount.innerText = numDevices === 1 ? `${numDevices} device` : `${numDevices} devices`;
-        newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex);
+		
+		if (existingDeviceData.isDeviceSimulated()){
+			newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex);
+		}else{
+			//ToDo: complete for real sensor
+		}
 
         // add device to the UI list
         const node = document.createElement('option');

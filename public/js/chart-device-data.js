@@ -154,7 +154,7 @@ $(document).ready(() => {
         id: 'bloodGlucose',
         type: 'linear',
         scaleLabel: {
-          labelString: 'mg/dL',
+          labelString: 'Blood glucose [mg/dL]',
           display: true,
         },
         position: 'left',
@@ -163,7 +163,7 @@ $(document).ready(() => {
         id: 'endTidalCO2',
         type: 'linear',
         scaleLabel: {
-          labelString: 'mmHg',
+          labelString: 'endTidalCO2 [mmHg]',
           display: true,
         },
         position: 'left',
@@ -269,7 +269,7 @@ $(document).ready(() => {
         id: 'BatteryVoltage',
         type: 'linear',
         scaleLabel: {
-          labelString: 'V',
+          labelString: 'Battery [mV]',
           display: true,
         },
         position: 'left',
@@ -278,7 +278,7 @@ $(document).ready(() => {
         id: 'BloodPressureDiastolitic',
         type: 'linear',
         scaleLabel: {
-          labelString: 'ver',
+          labelString: 'Blood pressure diastolitic [mmHg]',
           display: true,
         },
         position: 'left',
@@ -287,7 +287,7 @@ $(document).ready(() => {
         id: 'BloodPressureSystolic',
         type: 'linear',
         scaleLabel: {
-          labelString: 'Ver',
+          labelString: 'Blood pressure systolic [mmHg]',
           display: true,
         },
         position: 'left',
@@ -296,7 +296,7 @@ $(document).ready(() => {
         id: 'HeartRate',
         type: 'linear',
         scaleLabel: {
-          labelString: 'ver',
+          labelString: 'bmp',
           display: true,
         },
         position: 'left',
@@ -305,7 +305,7 @@ $(document).ready(() => {
         id: 'OxygenSaturation',
         type: 'linear',
         scaleLabel: {
-          labelString: 'ver',
+          labelString: 'oxygen saturation [%]',
           display: true,
         },
         position: 'left',
@@ -314,7 +314,7 @@ $(document).ready(() => {
         id: 'RespiratoryRate',
         type: 'linear',
         scaleLabel: {
-          labelString: 'ver',
+          labelString: 'breaths per minute',
           display: true,
         },
         position: 'left',
@@ -323,7 +323,7 @@ $(document).ready(() => {
         id: 'Temperature',
         type: 'linear',
         scaleLabel: {
-          labelString: 'ver',
+          labelString: 'Temperature [ºC]',
           display: true,
         },
         position: 'left',

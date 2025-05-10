@@ -10,6 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/chart-device-data.js" type="text/javascript" charset="utf-8"></script>
     <link href="css/style.css" rel="stylesheet" />
+	
+	<!-- Mapbox library-->
+	<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.16.1/mapbox-gl.css" rel="stylesheet" />
 
     <title>Hospital Real-time monitoring</title>
 </head>
@@ -25,6 +30,28 @@
     <div>
         <canvas id="iotChart"></canvas>
     </div>
+	
+	<div id="map"></div>
+	
+	<script>
+		// Tu API Token de Mapbox
+		mapboxgl.accessToken = 'pk.eyJ1IjoiYWx2YXJvcnAxOSIsImEiOiJjbWFpamVtZWUwMmhuMmpzazF5YTZ3emw2In0.955WJKEok1-tQwvkNOhRpg';
+
+		// Crear mapa
+		const map = new mapboxgl.Map({
+			container: 'map', // ID del div
+			style: 'mapbox://styles/mapbox/streets-v12', // Estilo del mapa
+			center: [-3.7038, 40.4168], // [lng, lat] — Madrid
+			zoom: 12
+		});
+
+		// Crear un marker
+		const marker = new mapboxgl.Marker()
+			.setLngLat([-3.7038, 40.4168]) // [lng, lat]
+			.setPopup(new mapboxgl.Popup().setHTML("<h3>Hola!</h3><p>Estoy en Madrid 🚀</p>"))
+		.addTo(map);
+	</script>
+	
 </body>
 
 </html>

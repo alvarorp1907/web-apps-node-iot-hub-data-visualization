@@ -305,7 +305,7 @@ $(document).ready(() => {
         id: 'OxygenSaturation',
         type: 'linear',
         scaleLabel: {
-          labelString: 'oxygen saturation [%]',
+          labelString: 'Oxygen saturation [%]',
           display: true,
         },
         position: 'left',
@@ -314,7 +314,7 @@ $(document).ready(() => {
         id: 'RespiratoryRate',
         type: 'linear',
         scaleLabel: {
-          labelString: 'breaths per minute',
+          labelString: 'Breaths per minute',
           display: true,
         },
         position: 'left',

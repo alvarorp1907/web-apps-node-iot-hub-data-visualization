@@ -275,7 +275,7 @@ $(document).ready(() => {
 		
 		if (newDeviceData.isDeviceSimulated()){
 			newDeviceData.addData(messageData.MessageDate, messageData.IotData.bloodGlucose, messageData.IotData.endTidalCO2, messageData.IotData.arrhythmiaIndex);
-			console.log("First time adding new data for simulated sensor");
+			console.log("First time adding new data for simulated sensor: " + messageData.IotData.bloodGlucose);
 		}else{
 			newDeviceData.addRealData(messageData.MessageDate, messageData.IotData.Temperature);
 			console.log("First time adding new data for real sensor: " + messageData.IotData.Temperature);

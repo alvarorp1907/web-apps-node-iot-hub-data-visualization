@@ -388,7 +388,7 @@ $(document).ready(() => {
   	container: 'map', // ID div
   	style: 'mapbox://styles/mapbox/satellite-v9', // Satellite style
   	center: [-3.62, 40.38], // [lng, lat] — Madrid
-  	zoom: 20
+  	zoom: 13
   });
 
   // When a web socket message arrives:

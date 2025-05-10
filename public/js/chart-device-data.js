@@ -50,6 +50,7 @@ $(document).ready(() => {
     }
 	
 	isDeviceSimulated(){
+		console.log("Valor de simulacion " + this.isSimulated);
 		return this.isSimulated;
 	}
   }

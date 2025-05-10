@@ -232,8 +232,8 @@ $(document).ready(() => {
 		console.log("Datos antes de actualizar: "+ chartData.datasets[0].data)
         myLineChart.update();
 	}else{
-		chartData.labels = device.timeData;
-        chartData.datasets[0].data = device.Temperature;
+		chartRealData.labels = device.timeData;
+        chartRealData.datasets[0].data = device.Temperature;
 		console.log("Data temperatura: "+ chartData.datasets[0].data)
         myLineRealChart.update();
 	}

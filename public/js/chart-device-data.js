@@ -368,6 +368,8 @@ $(document).ready(() => {
 	    chartData.datasets[2].data = device.arrhythmiaIndex || [];
 		console.log("Datos antes de actualizar: "+ chartData.datasets[0].data)
         myLineChart.update();
+		//switch off panic led
+		panicLed.style.display = "none";
 	}else{
 		chartRealData.labels = device.timeData;
 		chartRealData.datasets[0].data = device.BatteryVoltage || [];
@@ -378,6 +380,10 @@ $(document).ready(() => {
 		chartRealData.datasets[5].data = device.RespiratoryRate || [];
         chartRealData.datasets[6].data = device.Temperature || [];
         myLineRealChart.update();
+		//switch on panic led
+		panicLed.style.display = "flex";
+		panicLed.backgroundColor = "green";
+		
 	}
   }
   listOfDevices.addEventListener('change', OnSelectionChange, false);
@@ -506,10 +512,7 @@ $(document).ready(() => {
 	  //checking led status for current sensor
 	  if (DeviceActiveStr == messageData.DeviceId){
 		  
-		  if (activeDevice.isDeviceSimulated()){
-			  //disable panic led
-			  panicLed.style.display = "none";
-		  }else{
+		  if (!activeDevice.isDeviceSimulated()){
 			  //change LED colour if the sensor is real and panic alarm is 1
 			  if (parseFloat(messageData.IotData.PanicAlarm) == 1){
 			  panicLed.style.backgroundColor = "red";

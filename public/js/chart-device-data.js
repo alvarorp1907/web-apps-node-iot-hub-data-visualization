@@ -34,6 +34,7 @@ $(document).ready(() => {
 		  this.RespiratoryRate = new Array(this.maxLen);
 		  this.Satellites = new Array(this.maxLen);
 		  this.Temperature = new Array(this.maxLen);
+		  this.led = "green"
 	  }
     }
 
@@ -366,7 +367,7 @@ $(document).ready(() => {
         chartData.datasets[0].data = device.bloodGlucoseData || [];
 	    chartData.datasets[1].data = device.endTidalCO2Data || [];
 	    chartData.datasets[2].data = device.arrhythmiaIndex || [];
-		console.log("Datos antes de actualizar: "+ chartData.datasets[0].data)
+		console.log("Datos antes de actualizar: "+ chartData.datasets[0].data);
         myLineChart.update();
 		//switch off panic led
 		panicLed.style.display = "none";
@@ -382,7 +383,13 @@ $(document).ready(() => {
         myLineRealChart.update();
 		//switch on panic led
 		panicLed.style.display = "flex";
-		panicLed.backgroundColor = "green";
+		
+		//set colour depending on previous state stored
+		if (device.led == "green"){
+			panicLed.backgroundColor = "green";
+		}else{
+			panicLed.backgroundColor = "green";
+		}
 		
 	}
   }
@@ -515,9 +522,11 @@ $(document).ready(() => {
 		  if (!activeDevice.isDeviceSimulated()){
 			  //change LED colour if the sensor is real and panic alarm is 1
 			  if (parseFloat(messageData.IotData.PanicAlarm) == 1){
-			  panicLed.style.backgroundColor = "red";
+				panicLed.style.backgroundColor = "red";
+				activeDevice.led = "red";
 			  }else{
-			  panicLed.style.backgroundColor = "green";
+				panicLed.style.backgroundColor = "green";
+				activeDevice.led = "green";
 			  }
 		  }
 		  

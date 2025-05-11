@@ -497,21 +497,29 @@ $(document).ready(() => {
 	  if (updateChartForSimulated){
 		  console.log("Actualizando grafico para sensores simulados");
 		  myLineChart.update();
-		  //switch off panic led
-		  panicLed.style.display = "none";
 		  
 	  }else{
 		  console.log("Actualizando grafico para sensores reales");
 		  myLineRealChart.update();
-		  
-		  //change LED colour if the sensor is real and panic alarm is 1
-		  panicLed.style.display = "flex";
-		  if (parseFloat(messageData.IotData.PanicAlarm) == 1){
-			  panicLed.style.backgroundColor = "red";
-		  }else{
-			  panicLed.style.backgroundColor = "green";
-		  }
 	  }
+	  
+	  //checking led status for current sensor
+	  if (DeviceActiveStr == messageData.DeviceId){
+		  
+		  if (activeDevice.isDeviceSimulated()){
+			  //disable panic led
+			  panicLed.style.display = "none";
+		  }else{
+			  //change LED colour if the sensor is real and panic alarm is 1
+			  if (parseFloat(messageData.IotData.PanicAlarm) == 1){
+			  panicLed.style.backgroundColor = "red";
+			  }else{
+			  panicLed.style.backgroundColor = "green";
+			  }
+		  }
+		  
+	  }
+	  
 	  
     } catch (err) {
       console.error(err);

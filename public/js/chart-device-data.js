@@ -34,7 +34,7 @@ $(document).ready(() => {
 		  this.RespiratoryRate = new Array(this.maxLen);
 		  this.Satellites = new Array(this.maxLen);
 		  this.Temperature = new Array(this.maxLen);
-		  this.led = "green"
+		  this.led = 0;
 	  }
     }
 
@@ -385,7 +385,7 @@ $(document).ready(() => {
 		panicLed.style.display = "flex";
 		
 		//set colour depending on previous state stored
-		if (device.led == "green"){
+		if (device.led == 0){
 			panicLed.backgroundColor = "green";
 		}else{
 			panicLed.backgroundColor = "red";
@@ -450,6 +450,8 @@ $(document).ready(() => {
 					", Latitude: " + lat + ")</p>"
 					));
 			}
+			
+			existingDeviceData.led = parseFloat( messageData.IotData.PanicAlarm);
 		}
       } else {
 		  
@@ -464,6 +466,7 @@ $(document).ready(() => {
 		}else{
 			newDeviceData.addRealData(messageData.MessageDate, messageData.IotData.BatteryVoltage, messageData.IotData.BloodPressureDiastolitic, messageData.IotData.BloodPressureSystolic, messageData.IotData.HeartRate, messageData.IotData.OxygenSaturation, messageData.IotData.RespiratoryRate ,messageData.IotData.Temperature);
 			console.log("First time adding new data for real sensor: " + messageData.IotData.Temperature);
+			newDeviceData.led = parseFloat( messageData.IotData.PanicAlarm);
 			
 		}
 
@@ -523,10 +526,8 @@ $(document).ready(() => {
 			  //change LED colour if the sensor is real and panic alarm is 1
 			  if (parseFloat(messageData.IotData.PanicAlarm) == 1){
 				panicLed.style.backgroundColor = "red";
-				activeDevice.led = "red";
 			  }else{
 				panicLed.style.backgroundColor = "green";
-				activeDevice.led = "green";
 			  }
 		  }
 		  

@@ -392,6 +392,9 @@ $(document).ready(() => {
   	center: [-3.62, 40.38], // [lng, lat] — Madrid
   	zoom: 13
   });
+  
+  //panic botton
+  const panicLed = document.getElementById("ledIndicator");
 
   // When a web socket message arrives:
   // 1. Unpack it
@@ -493,11 +496,22 @@ $(document).ready(() => {
 	  
 	  if (updateChartForSimulated){
 		  console.log("Actualizando grafico para sensores simulados");
-		  myLineChart.update(); 
+		  myLineChart.update();
+		  //switch off panic led
+		  panicLed.style.display = "none";
+		  
 	  }else{
 		  console.log("Actualizando grafico para sensores reales");
 		  myLineRealChart.update();
-	  } 
+		  
+		  //change LED colour if the sensor is real and panic alarm is 1
+		  panicLed.style.display = "flex";
+		  if (parseFloat(messageData.IotData.PanicAlarm) == 1){
+			  panicLed.style.backgroundColor = "red";
+		  }else{
+			  panicLed.style.backgroundColor = "green";
+		  }
+	  }
 	  
     } catch (err) {
       console.error(err);

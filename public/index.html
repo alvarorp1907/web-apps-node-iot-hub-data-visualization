@@ -19,12 +19,31 @@
 
 <body>
     <h1 class="flexHeader">
-        <span>
+        <span style="display: flex; align-items: center; gap: 10px;">
             <span id="deviceCount">0 devices</span>
             <select id="listOfDevices" class="select_box"></select>
+			<span id="ledIndicator">Panic led</span>
         </span>
         <span>Hospital Real-time monitoring</span>
     </h1>
+	
+	<style>
+		#ledIndicator {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 90px;
+			height: 38px;
+			background-color: green;
+			border: 1px solid black;
+			border-radius: 3px;
+			color: white;
+			font-size: 12px;
+			font-weight: bold;
+}
+		}
+	</style>
+
     <div>
         <canvas id="iotChart"></canvas>
     </div>

@@ -387,9 +387,9 @@ $(document).ready(() => {
 		//set colour depending on previous state stored
 		console.log("Cambio a device ID " + device.deviceId);
 		if (device.led == 0){
-			panicLed.backgroundColor = "green";
+			panicLed.style.backgroundColor = "green";
 		}else{
-			panicLed.backgroundColor = "red";
+			panicLed.style.backgroundColor = "red";
 		}
 		
 	}

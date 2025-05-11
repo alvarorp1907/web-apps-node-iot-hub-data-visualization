@@ -388,7 +388,7 @@ $(document).ready(() => {
 		if (device.led == "green"){
 			panicLed.backgroundColor = "green";
 		}else{
-			panicLed.backgroundColor = "green";
+			panicLed.backgroundColor = "red";
 		}
 		
 	}
